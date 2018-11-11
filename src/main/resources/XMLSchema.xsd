@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://localhost/p-laba1"
+        xmlns:tns="http://localhost/p-laba1"
+        elementFormDefault="qualified"
+>
+
+    <!-- Абстрактный сложный тип -->
+    <xsd:complexType name="Adv" abstract="true"/>
+
+    <!-- Сложный тип, образованный вложенными элементами с использованием модельной группы -
+    sequence и путём расширения абстрактного -->
+    <xsd:complexType name="CarAdv">
+        <xsd:annotation>
+            <xsd:documentation>Базовый тип</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:Adv">
+                <xsd:sequence>
+                    <xsd:element name="id" type="tns:ID"/>
+                    <xsd:element name="carAdvName" type="tns:String200"/>
+                    <xsd:element name="carAdvStatus" type="tns:CarAdvStatus"/>
+                    <xsd:element name="carAdvDate" type="xsd:dateTime"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- Сложный тип, образованный вложенными элементами с использованием модельной группы -
+    sequence  и путём расширения абстрактного -->
+    <xsd:complexType name="RealtyAdv">
+        <xsd:annotation>
+            <xsd:documentation>Базовый версионный тип</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:Adv">
+                <xsd:sequence>
+                    <xsd:element name="id" type="tns:ID">
+                        <xsd:annotation>
+                            <xsd:documentation>Идентификатор объявления</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="description" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Описание объявления о продаже недвижимости</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="status" type="xsd:integer">
+                        <xsd:annotation>
+                            <xsd:documentation>Статус объявления</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- Сложный тип, образованный вложенными элементами, в том числе сложного типа,
+    с использованием модельной группы - sequence и путём расширения -->
+    <xsd:complexType name="ExclusiveCarAdv">
+        <xsd:annotation>
+            <xsd:documentation>Объявление о продаже эксклюзивных автомобилей</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:CarAdv">
+                <xsd:sequence>
+                    <xsd:element name="ownersDocumentsList" type="tns:OwnersDocuments" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="exclusiveCarAdvList" type="tns:ExclusiveCarAdvList"/>
+    <!-- <xsd:element name="restrictedBusinessEntityList" type="tns:RestrictedBusinessEntityList"/> -->
+
+    <!-- Сложный тип, образованный вложенными элементами, в том числе сложного типа,
+    и атрибутами с использованием модельной группы - sequence -->
+    <xsd:complexType name="ExclusiveCarAdvList">
+        <xsd:annotation>
+            <xsd:documentation>Список</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="exclusiveCarAdv" type="tns:ExclusiveCarAdv" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Сложный тип, образованный вложенными элементами, в том числе сложного типа,
+    и и атрибутами с использованием модельной группы - sequence и путём ограничения -->
+    <xsd:complexType name="RestrictedExclusiveCarAdvList">
+        <xsd:annotation>
+            <xsd:documentation>Ограниченный список</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:restriction base="tns:ExclusiveCarAdvList">
+                <xsd:sequence>
+                    <xsd:element name="exclusiveCarAdv" type="tns:ExclusiveCarAdv" minOccurs="1" maxOccurs="10" />
+                </xsd:sequence>
+            </xsd:restriction>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- Простой тип, образованный на базе существующего, с фасетом - pattern -->
+    <xsd:simpleType name="ID">
+        <xsd:annotation>
+            <xsd:documentation>Уникальный идентификатор</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-z]{4}-[0-9]{4}-[A-Z]{4}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Простой тип, образованный на базе существующего, с фасетом - maxLength -->
+    <xsd:simpleType name="String200">
+        <xsd:annotation>
+            <xsd:documentation>Строка с ограничением длины в 200 символов</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Простой тип, образованный на базе существующего, с фасетом - enumeration -->
+    <xsd:simpleType name="CarAdvStatus">
+        <xsd:annotation>
+            <xsd:documentation>Статус записи реестра ХС</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="MODERATING"/>
+            <xsd:enumeration value="FAILED_MODERATING"/>
+            <xsd:enumeration value="ACTIVE"/>
+            <xsd:enumeration value="CLOSED"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Сложный тип, образованный вложенными элементами с использованием модельной группы - choice -->
+        <xsd:complexType name="OwnersDocuments">
+            <xsd:annotation>
+                <xsd:documentation>Документы владельца</xsd:documentation>
+            </xsd:annotation>
+            <xsd:sequence>
+                <xsd:element name="inn" type="xsd:integer"/>
+                <xsd:element name="passport" type="xsd:string"/>
+            </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

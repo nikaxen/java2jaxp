@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<exclusiveCarAdvList xmlns="http://localhost/p-laba1">
+    <exclusiveCarAdv>
+        <id>sdfg-3524-HDKS</id>
+        <carAdvName>Porsche Cayene</carAdvName>
+        <carAdvStatus>MODERATING</carAdvStatus>
+        <carAdvDate>2018-11-10T21:30:45</carAdvDate>
+        <ownersDocumentsList>
+            <inn>835473485</inn>
+            <passport>7237 554755</passport>
+        </ownersDocumentsList>
+    </exclusiveCarAdv>
+    <exclusiveCarAdv>
+        <id>sdfg-3524-HDKS</id>
+        <carAdvName>Mercedes GLE</carAdvName>
+        <carAdvStatus>ACTIVE</carAdvStatus>
+        <carAdvDate>2018-10-11T14:50:50</carAdvDate>
+        <ownersDocumentsList>
+            <inn>326533235</inn>
+            <passport>7237 554755</passport>
+        </ownersDocumentsList>
+    </exclusiveCarAdv>
+</exclusiveCarAdvList>

@@ -1,0 +1,31 @@
+* {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+}
+body {
+   font-family: Arial;
+   background-color: #eeeeee;
+}
+
+table {
+   background-color: #ffffff;
+   margin: 0 auto;
+   transform: translateY(100%);
+}
+table thead td {
+   font-weight: bold;
+   background-color: #551f35;
+   color: #ffffff;
+}
+table td {
+   padding: 20px;
+   text-align: center;
+}
+table tbody td {
+   border-bottom: 2px solid blueviolet;
+}
+/*
+table tr:last-child td {
+   border-bottom: 0;
+}*/
