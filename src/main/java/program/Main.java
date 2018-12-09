@@ -1,18 +1,22 @@
 package program;
 
+import advs.exclusiveCarAdvList;
+import program.services.ECAS;
 import program.services.FileResolver;
+import program.services.JAXBWorker;
 import program.services.XMLReader;
-import program.services.XMLValidator;
 
 public class Main {
    public static void main(String[] args) {
-      XMLValidator xmlValidator = new XMLValidator();
+      ECAS ecas = new ECAS();
       FileResolver fileResolver = new FileResolver();
+      JAXBWorker jaxbWorker = new JAXBWorker();
       XMLReader xmlReader = new XMLReader();
 
-      xmlValidator.validateXMLSchema(fileResolver.getXmlFileAbsolutePath("ExclusiveCarAdvList.xml"),
-              fileResolver.getXmlFileAbsolutePath("XMLSchema.xsd"));
-      xmlReader.transformXmlToHtml(fileResolver.getXmlFileAbsolutePath("ExclusiveCarAdvList.xml"),
-              fileResolver.getXmlFileAbsolutePath("template.xsl"));
+      exclusiveCarAdvList exclusiveCarAdvList = jaxbWorker.unmarshalling(fileResolver.getXmlFileAbsolutePath("ExclusiveCarAdvList.xml"));
+      if (!exclusiveCarAdvList.getExclusiveCarAdv().isEmpty()) {
+         exclusiveCarAdvList.getExclusiveCarAdv().forEach(ecas::synchronizeWithFNS);
+         xmlReader.transformXmlToHtml(jaxbWorker.marshalling(exclusiveCarAdvList), fileResolver.getXmlFileAbsolutePath("template.xsl"));
+      }
    }
 }

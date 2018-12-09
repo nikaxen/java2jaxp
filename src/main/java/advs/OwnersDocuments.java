@@ -1,15 +1,22 @@
 package advs;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
-public class OwnersDocuments extends CarAdv  {
-   private Integer inn;
+@XmlAccessorType(XmlAccessType.FIELD)
+public class OwnersDocuments  {
+   @XmlElement(name = "inn")
+   private String inn;
+   @XmlElement(name = "passport")
    private String passport;
 
-   public Integer getInn() {
+   public String getInn() {
       return inn;
    }
 
-   public void setInn(Integer inn) {
+   public void setInn(String inn) {
       this.inn = inn;
    }
 

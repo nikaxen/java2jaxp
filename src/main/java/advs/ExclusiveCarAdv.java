@@ -1,32 +1,17 @@
 package advs;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ExclusiveCarAdv extends CarAdv {
-   private String id;
-   private String carAdvName;
+   @XmlElement(name = "carAdvStatus")
    private CarAdvStatus carAdvStatus;
+
+   @XmlElement(name = "ownersDocumentsList")
    private OwnersDocuments ownersDocumentsList;
-
-   @Override
-   public String getId() {
-      return id;
-   }
-
-   @Override
-   public void setId(String id) {
-      this.id = id;
-   }
-
-   @Override
-   public String getCarAdvName() {
-      return carAdvName;
-   }
-
-   @Override
-   public void setCarAdvName(String carAdvName) {
-      this.carAdvName = carAdvName;
-   }
 
    public CarAdvStatus getCarAdvStatus() {
       return carAdvStatus;
